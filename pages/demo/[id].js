@@ -1,64 +1,25 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-const shareUrl = "https://demo-next-vuphan07.vercel.app/";
-const _twitterUrl = new URL("https://twitter.com/share");
-_twitterUrl.searchParams.set("url", shareUrl);
-const _lineUrl = new URL("https://social-plugins.line.me/lineit/share");
-_lineUrl.searchParams.set("url", shareUrl);
-const _metaUrl = new URL("https://www.facebook.com/sharer/sharer.php");
-_metaUrl.searchParams.set("u", shareUrl);
-
-// const data = [
-//   {
-//     name: "description",
-//     content:
-//       "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
-//   },
-//   {
-//     name: "og:image",
-//     content:
-//       "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
-//   },
-//   {
-//     name: "og:title",
-//     content: "title page index",
-//   },
-//   {
-//     name: "title",
-//     content: "title main",
-//   },
-//   {
-//     name: "twitter:card",
-//     content: "summary_large_image",
-//   },
-//   {
-//     name: "twitter:title",
-//     content: "title page index",
-//   },
-//   {
-//     name: "twitter:image",
-//     content:
-//       "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
-//   },
-// ];
-
-
-export default function Home(props) {
+import React from "react";
+import { useRouter } from "next/router";
+export const Demo1 = (props) => {
+  const router = useRouter();
+  const { id } = router.query;
+  const shareUrl = `https://demo-next-vuphan07.vercel.app/demo/${id}`;
+  const _twitterUrl = new URL("https://twitter.com/share");
+  _twitterUrl.searchParams.set("url", shareUrl);
+  const _lineUrl = new URL("https://social-plugins.line.me/lineit/share");
+  _lineUrl.searchParams.set("url", shareUrl);
+  const _metaUrl = new URL("https://www.facebook.com/sharer/sharer.php");
+  _metaUrl.searchParams.set("u", shareUrl);
+  const index = id%2 ===0 ? 0 : 1;
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <meta name="title" content="title demo 1" />
+      {props?.data[index].map((item, index) => (
+          <meta key={index} {...item} />
+        ))}
+        {/*  */}
         <meta name="theme-color" content="#F7F0E9" />
-        <meta name="description" content="description page demo 1 app main" />
-        <meta key="1" name="twitter:card" content="summary_large_image 213213123" />
-        <meta key="2" name="twitter:title" content="title page 3123123123" />
-        <meta key="3" name="twitter:image" content="https://live.staticflickr.com/1860/43526893585_cc37ec703a_b.jpg" />
-        <meta key="4" property="og:title" content="title page demo 12132312312" />
-        <meta key="5"
-          property="og:image"
-          content="https://live.staticflickr.com/1860/43526893585_cc37ec703a_b.jpg"
-        />
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-TileColor" content="#F7F0E9" />
         <meta name="application-name" content="senkyo" />
@@ -78,7 +39,6 @@ export default function Home(props) {
         />
         <link rel="manifest" href="/manifest.json" />
       </Head>
-
       <main>
         <button
           onClick={() => {
@@ -102,19 +62,16 @@ export default function Home(props) {
           facebook
         </button>
       </main>
-    </div>
+    </>
   );
-}
+};
 
 export async function getServerSideProps() {
-  const number = Math.round(Math.random() *100) 
-  let data = [];
-  if(number%2 === 0) {
-     data = [
+  let data = [
+    [
       {
         name: "description",
-        content:
-          "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy 123",
+        content: "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy 123",
       },
       {
         name: "og:image",
@@ -142,18 +99,16 @@ export async function getServerSideProps() {
         content:
           "https://live.staticflickr.com/7581/15907563980_6a18386eed_b.jpg",
       },
-    ];
-  }else {
-     data = [
+    ],
+    [
       {
         name: "description",
-        content:
-          "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy 234",
+        content: "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy 234",
       },
       {
         name: "og:image",
         content:
-          "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
+          "https://www.f-16.net/g3/var/resizes/f-16-photos/album38/album68/anh.jpg?m=1371916456",
       },
       {
         name: "og:title",
@@ -174,11 +129,12 @@ export async function getServerSideProps() {
       {
         name: "twitter:image",
         content:
-          "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
+          "https://www.f-16.net/g3/var/resizes/f-16-photos/album38/album68/anh.jpg?m=1371916456",
       },
-    ];
-  }
-  
+    ],
+  ];
 
   return { props: { data } };
 }
+
+export default Demo1;
