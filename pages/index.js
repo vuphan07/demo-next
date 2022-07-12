@@ -1,5 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useEffect, useMemo } from "react";
+import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 const shareUrl = "https://demo-next-vuphan07.vercel.app/";
 const _twitterUrl = new URL("https://twitter.com/share");
@@ -10,6 +12,12 @@ const _metaUrl = new URL("https://www.facebook.com/sharer/sharer.php");
 _metaUrl.searchParams.set("u", shareUrl);
 
 export default function Home(props) {
+  const route = useRouter();
+
+  useEffect(() => {
+    route.replace("https://sp.booking.com/");
+  });
+
   return (
     <div className={styles.container}>
       <Head>
@@ -42,7 +50,7 @@ export default function Home(props) {
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
-      <main>
+      {/* <main>
         <button
           onClick={() => {
             window.open(_twitterUrl.toString(), "_blank");
@@ -64,7 +72,7 @@ export default function Home(props) {
         >
           facebook
         </button>
-      </main>
+      </main> */}
     </div>
   );
 }
@@ -145,8 +153,7 @@ export async function getServerSideProps(context) {
       {
         key: "5",
         property: "og:image",
-        content:
-          item.image,
+        content: item.image,
       },
       {
         key: "4",
@@ -170,8 +177,7 @@ export async function getServerSideProps(context) {
       {
         name: "twitter:image",
         key: "3",
-        content:
-          item.image,
+        content: item.image,
       },
     ];
   }
