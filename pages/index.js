@@ -9,40 +9,6 @@ _lineUrl.searchParams.set("url", shareUrl);
 const _metaUrl = new URL("https://www.facebook.com/sharer/sharer.php");
 _metaUrl.searchParams.set("u", shareUrl);
 
-// const data = [
-//   {
-//     name: "description",
-//     content:
-//       "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
-//   },
-//   {
-//     name: "og:image",
-//     content:
-//       "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
-//   },
-//   {
-//     name: "og:title",
-//     content: "title page index",
-//   },
-//   {
-//     name: "title",
-//     content: "title main",
-//   },
-//   {
-//     name: "twitter:card",
-//     content: "summary_large_image",
-//   },
-//   {
-//     name: "twitter:title",
-//     content: "title page index",
-//   },
-//   {
-//     name: "twitter:image",
-//     content:
-//       "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
-//   },
-// ];
-
 export default function Home(props) {
   return (
     <div className={styles.container}>
@@ -106,26 +72,53 @@ export default function Home(props) {
 export async function getServerSideProps(context) {
   const number = context.query.id || 2;
   let data = [];
+  const images = [
+    {
+      image:
+        "https://i.pinimg.com/originals/a2/34/9f/a2349fbe26147b97d2dcfb2f7678b81e.jpg",
+      title: "anh dep so 1",
+    },
+    {
+      image:
+        "https://i.pinimg.com/originals/49/6d/c1/496dc1150e51474f49c65598766d96ba.jpg",
+      title: "anh dep so 2",
+    },
+    {
+      image:
+        "https://i.pinimg.com/originals/64/d6/83/64d68345a1c9b726fb30959a495e41a3.jpg",
+      title: "anh dep so 3",
+    },
+    {
+      image:
+        "https://i.pinimg.com/736x/9f/17/06/9f1706a4882158ec05d828689927a737.jpg",
+      title: "anh dep so 4",
+    },
+    {
+      image:
+        "https://i.pinimg.com/originals/29/8f/8c/298f8ce1e4de0dc648de18b639f89625.jpg",
+      title: "anh dep so 5",
+    },
+  ];
+  const item = images[Math.floor(Math.random() * images.length)];
   if (number % 2 === 0) {
     data = [
       {
         name: "description",
-        content: "description cua id chan",
+        content: item.title,
       },
       {
         key: "5",
         property: "og:image",
-        content:
-          "https://live.staticflickr.com/7581/15907563980_6a18386eed_b.jpg",
+        content: item.image,
       },
       {
         key: "4",
         property: "og:title",
-        content: "title cau id chan",
+        content: item.title,
       },
       {
         name: "title",
-        content: "title cau id chan",
+        content: item.title,
       },
       {
         key: "1",
@@ -135,35 +128,34 @@ export async function getServerSideProps(context) {
       {
         key: "2",
         name: "twitter:title",
-        content: "title cau id chan",
+        content: item.title,
       },
       {
         key: "3",
         name: "twitter:image",
-        content:
-          "https://live.staticflickr.com/7581/15907563980_6a18386eed_b.jpg",
+        content: item.image,
       },
     ];
   } else {
     data = [
       {
         name: "description",
-        content: "description cua id le",
+        content: item.title,
       },
       {
         key: "5",
         property: "og:image",
         content:
-          "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
+          item.image,
       },
       {
         key: "4",
         property: "og:title",
-        content: "title page index",
+        content: item.title,
       },
       {
         name: "title",
-        content: "title cau id le",
+        content: item.title,
       },
       {
         key: "1",
@@ -173,13 +165,13 @@ export async function getServerSideProps(context) {
       {
         key: "2",
         name: "twitter:title",
-        content: "title cau id le",
+        content: item.title,
       },
       {
         name: "twitter:image",
         key: "3",
         content:
-          "https://i.9mobi.vn/cf/Images/tt/2021/8/20/anh-avatar-dep-45.jpg",
+          item.image,
       },
     ];
   }
