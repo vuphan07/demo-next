@@ -1,22 +1,34 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
 const shareUrl = "https://demo-next-vuphan07.vercel.app/";
 const _twitterUrl = new URL("https://twitter.com/share");
 _twitterUrl.searchParams.set("url", shareUrl);
+_twitterUrl.searchParams.set("s", btoa(Math.random().toString().substr(2, 16)));
+_twitterUrl.searchParams.set("share", "1");
 const _lineUrl = new URL("https://social-plugins.line.me/lineit/share");
 _lineUrl.searchParams.set("url", shareUrl);
+_lineUrl.searchParams.set("s", btoa(Math.random().toString().substr(2, 16)));
+_lineUrl.searchParams.set("share", "1");
 const _metaUrl = new URL("https://www.facebook.com/sharer/sharer.php");
 _metaUrl.searchParams.set("u", shareUrl);
-
+_metaUrl.searchParams.set("s", btoa(Math.random().toString().substr(2, 16)));
+_metaUrl.searchParams.set("share", "1");
 export default function Home(props) {
   const route = useRouter();
-
+  const [isRender, setIsRender] = useState(false);
   useEffect(() => {
-    route.replace("https://sp.booking.com/");
+    if (route?.query?.share) {
+      route.replace("https://sp.booking.com/");
+      setIsRender(false);
+    } else {
+      setIsRender(true);
+    }
   });
+
+  if (!isRender) return null;
 
   return (
     <div className={styles.container}>
@@ -50,7 +62,7 @@ export default function Home(props) {
         <link rel="manifest" href="/manifest.json" />
       </Head>
 
-      {/* <main>
+      <main>
         <button
           onClick={() => {
             window.open(_twitterUrl.toString(), "_blank");
@@ -72,115 +84,154 @@ export default function Home(props) {
         >
           facebook
         </button>
-      </main> */}
+      </main>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
-  const number = context.query.id || 2;
-  let data = [];
-  const images = [
+  // const number = context.query.id || 2;
+  // let data = [];
+  // const images = [
+  //   {
+  //     image:
+  //       "https://i.pinimg.com/originals/a2/34/9f/a2349fbe26147b97d2dcfb2f7678b81e.jpg",
+  //     title: "anh dep so 1",
+  //   },
+  //   {
+  //     image:
+  //       "https://i.pinimg.com/originals/49/6d/c1/496dc1150e51474f49c65598766d96ba.jpg",
+  //     title: "anh dep so 2",
+  //   },
+  //   {
+  //     image:
+  //       "https://i.pinimg.com/originals/64/d6/83/64d68345a1c9b726fb30959a495e41a3.jpg",
+  //     title: "anh dep so 3",
+  //   },
+  //   {
+  //     image:
+  //       "https://i.pinimg.com/736x/9f/17/06/9f1706a4882158ec05d828689927a737.jpg",
+  //     title: "anh dep so 4",
+  //   },
+  //   {
+  //     image:
+  //       "https://i.pinimg.com/originals/29/8f/8c/298f8ce1e4de0dc648de18b639f89625.jpg",
+  //     title: "anh dep so 5",
+  //   },
+  // ];
+  // const item = images[Math.floor(Math.random() * images.length)];
+  // if (number % 2 === 0) {
+  //   data = [
+  //     {
+  //       name: "description",
+  //       content: item.title,
+  //     },
+  //     {
+  //       key: "5",
+  //       property: "og:image",
+  //       content: item.image,
+  //     },
+  //     {
+  //       key: "4",
+  //       property: "og:title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       name: "title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       key: "1",
+  //       name: "twitter:card",
+  //       content: "summary_large_image",
+  //     },
+  //     {
+  //       key: "2",
+  //       name: "twitter:title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       key: "3",
+  //       name: "twitter:image",
+  //       content: item.image,
+  //     },
+  //   ];
+  // } else {
+  //   data = [
+  //     {
+  //       name: "description",
+  //       content: item.title,
+  //     },
+  //     {
+  //       key: "5",
+  //       property: "og:image",
+  //       content: item.image,
+  //     },
+  //     {
+  //       key: "4",
+  //       property: "og:title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       name: "title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       key: "1",
+  //       name: "twitter:card",
+  //       content: "summary_large_image",
+  //     },
+  //     {
+  //       key: "2",
+  //       name: "twitter:title",
+  //       content: item.title,
+  //     },
+  //     {
+  //       name: "twitter:image",
+  //       key: "3",
+  //       content: item.image,
+  //     },
+  //   ];
+  // }
+
+  const res = await fetch(
+    "https://yummy-call-server-v2.herokuapp.com/api/user/628b22fa49e650a6a684d205"
+  ).then((response) => response.json());
+
+  const data = [
     {
-      image:
-        "https://i.pinimg.com/originals/a2/34/9f/a2349fbe26147b97d2dcfb2f7678b81e.jpg",
-      title: "anh dep so 1",
+      name: "description",
+      content: res.data.username,
     },
     {
-      image:
-        "https://i.pinimg.com/originals/49/6d/c1/496dc1150e51474f49c65598766d96ba.jpg",
-      title: "anh dep so 2",
+      key: "5",
+      property: "og:image",
+      content: res.data.avatar_url,
     },
     {
-      image:
-        "https://i.pinimg.com/originals/64/d6/83/64d68345a1c9b726fb30959a495e41a3.jpg",
-      title: "anh dep so 3",
+      key: "4",
+      property: "og:title",
+      content: res.data.username,
     },
     {
-      image:
-        "https://i.pinimg.com/736x/9f/17/06/9f1706a4882158ec05d828689927a737.jpg",
-      title: "anh dep so 4",
+      name: "title",
+      content: res.data.username,
     },
     {
-      image:
-        "https://i.pinimg.com/originals/29/8f/8c/298f8ce1e4de0dc648de18b639f89625.jpg",
-      title: "anh dep so 5",
+      key: "1",
+      name: "twitter:card",
+      content: "summary_large_image",
+    },
+    {
+      key: "2",
+      name: "twitter:title",
+      content: res.data.username,
+    },
+    {
+      name: "twitter:image",
+      key: "3",
+      content: res.data.avatar_url,
     },
   ];
-  const item = images[Math.floor(Math.random() * images.length)];
-  if (number % 2 === 0) {
-    data = [
-      {
-        name: "description",
-        content: item.title,
-      },
-      {
-        key: "5",
-        property: "og:image",
-        content: item.image,
-      },
-      {
-        key: "4",
-        property: "og:title",
-        content: item.title,
-      },
-      {
-        name: "title",
-        content: item.title,
-      },
-      {
-        key: "1",
-        name: "twitter:card",
-        content: "summary_large_image",
-      },
-      {
-        key: "2",
-        name: "twitter:title",
-        content: item.title,
-      },
-      {
-        key: "3",
-        name: "twitter:image",
-        content: item.image,
-      },
-    ];
-  } else {
-    data = [
-      {
-        name: "description",
-        content: item.title,
-      },
-      {
-        key: "5",
-        property: "og:image",
-        content: item.image,
-      },
-      {
-        key: "4",
-        property: "og:title",
-        content: item.title,
-      },
-      {
-        name: "title",
-        content: item.title,
-      },
-      {
-        key: "1",
-        name: "twitter:card",
-        content: "summary_large_image",
-      },
-      {
-        key: "2",
-        name: "twitter:title",
-        content: item.title,
-      },
-      {
-        name: "twitter:image",
-        key: "3",
-        content: item.image,
-      },
-    ];
-  }
-
   return { props: { data } };
 }
