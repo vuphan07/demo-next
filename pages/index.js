@@ -19,13 +19,9 @@ export default function Home(props) {
   useEffect(() => {
     if (route?.query?.share) {
       route.replace("https://sp.booking.com/");
-      setIsRender(false);
-    } else {
-      setIsRender(true);
-    }
+    } 
   });
 
-  if (!isRender) return null;
 
   return (
     <div className={styles.container}>
