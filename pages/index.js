@@ -3,7 +3,10 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import styles from "../styles/Home.module.css";
-const shareUrl = `https://demo-next-vuphan07.vercel.app/?s=${btoa(Math.random().toString().substr(2, 16))}&share=1`;
+import axios from "axios";
+const shareUrl = `https://demo-next-vuphan07.vercel.app/?s=${btoa(
+  Math.random().toString().substr(2, 16)
+)}&share=1`;
 const _twitterUrl = new URL("https://twitter.com/share");
 _twitterUrl.searchParams.set("url", shareUrl);
 const _lineUrl = new URL("https://social-plugins.line.me/lineit/share");
@@ -188,28 +191,26 @@ export async function getServerSideProps(context) {
   //   ];
   // }
 
-  const res = await fetch(
-    "https://yummy-call-server-v2.herokuapp.com/api/user/628b22fa49e650a6a684d205"
-  ).then((response) => response.json());
+  const res = await axios.get("https://yummy-call-server-v2.herokuapp.com/api/user/628b22fa49e650a6a684d205");
 
   const data = [
     {
       name: "description",
-      content: res.data.username,
+      content: res.data.data.username,
     },
     {
       key: "5",
       property: "og:image",
-      content: res.data.avatar_url,
+      content: res.data.data.avatar_url,
     },
     {
       key: "4",
       property: "og:title",
-      content: res.data.username,
+      content: res.data.data.username,
     },
     {
       name: "title",
-      content: res.data.username,
+      content: res.data.data.username,
     },
     {
       key: "1",
@@ -219,13 +220,14 @@ export async function getServerSideProps(context) {
     {
       key: "2",
       name: "twitter:title",
-      content: res.data.username,
+      content: res.data.data.username,
     },
     {
       name: "twitter:image",
       key: "3",
-      content: res.data.avatar_url,
+      content: res.data.data.avatar_url,
     },
   ];
+  console.log("first");
   return { props: { data } };
 }
