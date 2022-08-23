@@ -19,6 +19,7 @@ export default function Home(props) {
   const {type} = router.query
   switch (type) {
     case "create":
+      document.cookie = `SENKYO_PREVIEW_DATA = ${JSON.stringify(router.query)}`
       localStorage.setItem('SENKYO_PREVIEW_DATA', JSON.stringify(router.query))
       break
     case "delete":
