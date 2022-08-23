@@ -15,10 +15,17 @@ import { useRouter } from 'next/router';
 export default function Home(props) {
   const route = useRouter();
   const { data: dataShare } = props;
-  // useEffect(() => {
-  //   route.replace(`${process.env.ENPOINT_URL}article/?uid=${route.query.uid}&aid=${route.query.aid}`);
-  // });
-
+  const router = useRouter()
+  const {type} = router.query
+  switch (type) {
+    case "create":
+      localStorage.setItem('SENKYO_PREVIEW_DATA', JSON.stringify(router.query))
+      break
+    case "delete":
+      localStorage.removeItem('SENKYO_PREVIEW_DATA')
+      break
+    default:
+  }
   return (
     <div>
       <Head>
