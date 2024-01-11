@@ -48,7 +48,7 @@ export default function Home(props) {
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta
-          http-equiv="Content-Security-Policy"
+          httpEquiv="Content-Security-Policy"
           content="
       style-src 'self' *.googleapis.com;
       script-src 'self' *.stripe.com 'nonce-rAnd0m';
