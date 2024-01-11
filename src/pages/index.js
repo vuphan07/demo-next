@@ -16,7 +16,7 @@ export default function Home(props) {
   const route = useRouter();
   const { data: dataShare } = props;
   const router = useRouter()
-  const {type} = router.query
+  const { type } = router.query
   switch (type) {
     case "create":
       document.cookie = `SENKYO_PREVIEW_DATA = ${JSON.stringify(router.query)}`
@@ -48,7 +48,7 @@ export default function Home(props) {
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
       </Head>
-      <h1>demo</h1>
+      <h1 style={{ color: "red" }}>demo</h1>
     </div>
   );
 }
