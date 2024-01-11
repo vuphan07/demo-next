@@ -47,6 +47,21 @@ export default function Home(props) {
         <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="
+      style-src 'self' *.googleapis.com;
+      script-src 'self' *.stripe.com 'nonce-rAnd0m';
+      connect-src 'self' *.auth0.com *.amazonaws.com *.amazoncognito.com; 
+      frame-src 'self' *.stripe.com *.amazonaws.com *.auth0.com *.amazon.com; 
+      font-src 'self' data: https://fonts.gstatic.com; 
+      img-src 'self' data: *.com *.vn;
+      media-src 'self'; 
+      object-src 'self' ; 
+      manifest-src 'self' ; 
+      worker-src 'self' ; 
+      form-action 'self';"
+        />
       </Head>
       <h1 style={{ color: "red" }}>demo</h1>
     </div>
