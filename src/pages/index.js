@@ -43,10 +43,7 @@ export default function Home(props) {
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#F7F0E9" />
         <meta name="apple-mobile-web-app-title" content="senkyo" />
-        <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
-        <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
+
         <meta
           httpEquiv="Content-Security-Policy"
           content="
@@ -62,6 +59,12 @@ export default function Home(props) {
       worker-src 'self' ; 
       form-action 'self';"
         />
+
+        <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/favicons/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
+
       </Head>
       <h1 style={{ color: "red" }}>demo</h1>
     </div>
